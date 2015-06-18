@@ -1,3 +1,6 @@
+[![Code
+Health](https://landscape.io/github/fpietka/python-fighter/master/landscape.svg?style=flat)](https://landscape.io/github/fpietka/python-fighter/master)
+
 # Python Fighter
 
 Street Fighter II using Python + Pygame
