@@ -17,8 +17,15 @@ class Sprite(object):
         )
         sprites = list()
         # yolo cutting
-        rect = pygame.Rect(0, 10, 50, 90)
-        sprite = spriteset.subsurface(rect).convert()
-        sprite = pygame.transform.scale2x(sprite)
-        sprites.append(sprite)
+        coords = (
+            (0, 15),
+            (49, 15),
+            (99, 15),
+            (148, 15)
+        )
+        for coord in coords:
+            rect = pygame.Rect(coord[0], coord[1], 50, 85)
+            sprite = spriteset.subsurface(rect).convert()
+            sprite = pygame.transform.scale2x(sprite)
+            sprites.append(sprite)
         return sprites
