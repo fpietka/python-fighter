@@ -3,6 +3,7 @@ import os
 import pygame
 from pygame.locals import *
 from sprite import Sprite
+import itertools
 
 
 class Game(object):
@@ -30,14 +31,15 @@ class Game(object):
         Main loop
         """
         running = True
+        sprite = Sprite().build_spriteset()
+        sprites = itertools.cycle(sprite)
         while running:
             pygame.time.Clock().tick(60)
             running = self.handleEvents()
             # blit the background
             self.screen.blit(self.background, self.position)
             # blit the sprite
-            sprite = Sprite().build_spriteset()
-            self.screen.blit(sprite[0], (0, 250))
+            self.screen.blit(sprites.next(), (0, 250))
             # update screen
             rect = pygame.Rect(
                 0,
