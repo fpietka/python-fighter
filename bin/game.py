@@ -25,21 +25,23 @@ class Game(object):
         # calculate center
         left = (self.background.get_width() - self.size[0]) / 2
         self.position = [-left, 0]
+        self.walking = False
+        self.sprites = Sprite().build_spriteset()
 
     def run(self):
         """
         Main loop
         """
         running = True
-        sprite = Sprite().build_spriteset()
-        sprites = itertools.cycle(sprite)
+        self.sprite = itertools.cycle(self.sprites['idle'])
+        self.p1left = 0
         while running:
             pygame.time.Clock().tick(10)
             running = self.handleEvents()
             # blit the background
             self.screen.blit(self.background, self.position)
             # blit the sprite
-            self.screen.blit(sprites.next(), (0, 250))
+            self.screen.blit(self.sprite.next(), (self.p1left, 250))
             # update screen
             rect = pygame.Rect(
                 0,
@@ -62,11 +64,28 @@ class Game(object):
                     return False
         pressed = pygame.key.get_pressed()
         # movement control controlling background for now
+        move = 'idle'
         if pressed[pygame.K_LEFT]:
+            move = 'left'
+            self.p1left -= 9
+            """
             self.position[0] = max(
                 self.position[0] - 3,
                 -self.background.get_width() + self.size[0]
             )
+            """
         if pressed[pygame.K_RIGHT]:
+            move = 'right'
+            self.p1left += 9
+            """
             self.position[0] = min(self.position[0] + 3, 0)
+            """
+        if move in ('left', 'right'):
+            if not self.walking:
+                self.walking = True
+                self.sprite = itertools.cycle(self.sprites['walking'])
+        else:
+            if self.walking:
+                self.walking = False
+                self.sprite = itertools.cycle(self.sprites['idle'])
         return True
