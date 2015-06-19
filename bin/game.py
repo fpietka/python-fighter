@@ -34,7 +34,7 @@ class Game(object):
         sprite = Sprite().build_spriteset()
         sprites = itertools.cycle(sprite)
         while running:
-            pygame.time.Clock().tick(60)
+            pygame.time.Clock().tick(10)
             running = self.handleEvents()
             # blit the background
             self.screen.blit(self.background, self.position)
